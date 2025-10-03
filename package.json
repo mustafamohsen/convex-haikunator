@@ -21,7 +21,9 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "clean": "rimraf dist || rm -rf dist",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix"
   },
   "keywords": [
     "convex",
@@ -41,7 +43,12 @@
   },
   "homepage": "https://github.com/mustafamohsen/convex-haikunator#readme",
   "devDependencies": {
-    "typescript": "^5.6.0",
-    "@types/node": "^22.5.0"
+    "@types/node": "^22.5.0",
+    "@typescript-eslint/eslint-plugin": "^8.45.0",
+    "@typescript-eslint/parser": "^8.45.0",
+    "eslint": "^9.36.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.6.2",
+    "typescript": "^5.6.0"
   }
 }
