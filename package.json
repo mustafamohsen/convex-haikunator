@@ -1,0 +1,47 @@
+{
+  "name": "convex-haikunator",
+  "version": "0.1.0",
+  "description": "Heroku-style, human-friendly name generator for Convex apps.",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "examples/convex/haikunator.ts"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf dist || rm -rf dist",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "convex",
+    "haikunator",
+    "heroku",
+    "name",
+    "generator",
+    "deterministic",
+    "random"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mustafamohsen/convex-haikunator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mustafamohsen/convex-haikunator/issues"
+  },
+  "homepage": "https://github.com/mustafamohsen/convex-haikunator#readme",
+  "devDependencies": {
+    "typescript": "^5.6.0",
+    "@types/node": "^22.5.0"
+  }
+}
