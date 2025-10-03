@@ -2,7 +2,7 @@
 
 Heroku-style, human-friendly name generator tailored for **Convex** apps.
 - Deterministic `preview` (safe for `useQuery`) and truly random `generate` (use `useAction`)
-- No lodash, tiny footprint
+- Tiny footprint
 - Exposes a pure generator so you can also use it outside Convex
 - MIT licensed
 
