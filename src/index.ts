@@ -21,13 +21,15 @@ export interface GenerateArgs {
 /** lodash.defaults-like shallow merge */
 export function applyDefaults<T extends object, U extends object>(
   target: T | undefined,
-  defaults: U,
+  defaults: U
 ): T & U {
-  const result: any = { ...defaults };
+  const result: Record<string, unknown> = { ...defaults };
   if (target) {
     for (const key of Object.keys(target)) {
-      const val = (target as any)[key];
-      if (val !== undefined) result[key] = val;
+      const val = (target as Record<string, unknown>)[key];
+      if (val !== undefined) {
+        result[key] = val;
+      }
     }
   }
   return result;
@@ -53,7 +55,9 @@ export function mulberry32(a: number): () => number {
 }
 
 function randInt(rng: () => number, n: number): number {
-  if (n <= 0) return 0;
+  if (n <= 0) {
+    return 0;
+  }
   return Math.floor(rng() * n);
 }
 
@@ -644,9 +648,7 @@ export function generateHaikuName(args: {
   const adjectives = (
     args.adjectives?.length ? args.adjectives : defaultAdjectives
   ) as readonly string[];
-  const nouns = (
-    args.nouns?.length ? args.nouns : defaultNouns
-  ) as readonly string[];
+  const nouns = (args.nouns?.length ? args.nouns : defaultNouns) as readonly string[];
 
   const base = applyDefaults(args.defaults, defaultOptions);
   const config = applyDefaults(args.options, base);
@@ -665,16 +667,14 @@ export function generateHaikuName(args: {
     token += tokenChars[randInt(args.rng, tokenChars.length)] ?? "";
   }
 
-  const name = [adjective, noun, token]
-    .filter(Boolean)
-    .join(config.delimiter ?? "-");
+  const name = [adjective, noun, token].filter(Boolean).join(config.delimiter ?? "-");
   return { name, parts: { adjective, noun, token } };
 }
 
 /** Deterministic preview: safe for Convex queries */
 export function seededPreview(
   seed: string,
-  args: GenerateArgs = {},
+  args: GenerateArgs = {}
 ): { name: string; parts: { adjective: string; noun: string; token: string } } {
   const seedInt = fnv1a32(
     JSON.stringify({
@@ -683,7 +683,7 @@ export function seededPreview(
       nouns: args.nouns ?? null,
       defaults: args.defaults ?? null,
       options: args.options ?? null,
-    }),
+    })
   );
   const rng = mulberry32(seedInt);
   return generateHaikuName({
