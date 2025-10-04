@@ -20,11 +20,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
+          cache: "pnpm"
           registry-url: "https://registry.npmjs.org/"
 
-      - name: Install pnpm
-        run: npm install -g pnpm
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9 # or the version you use locally
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
