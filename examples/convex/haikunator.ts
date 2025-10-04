@@ -1,57 +1,87 @@
-// File: convex/haikunator.ts
-// Drop-in Convex handlers built on top of `convex-haikunator` library.
-import { query, action } from "./_generated/server";
 import { v } from "convex/values";
+import { action, query } from "./_generated/server";
 
-import {
-  seededPreview,
-  randomGenerate,
-  type Config,
-} from "convex-haikunator";
+function secureRandomInt(max: number): number {
+  const array = new Uint32Array(1);
+  crypto.getRandomValues(array);
+  return array[0] % max;
+}
 
-const configSchema = v.object({
-  delimiter: v.optional(v.string()),
-  tokenLength: v.optional(v.number()),
-  tokenHex: v.optional(v.boolean()),
-  tokenChars: v.optional(v.string()),
+function randomElement<T>(arr: T[]): T {
+  return arr[secureRandomInt(arr.length)];
+}
+
+function randomGenerate(options: { delimiter?: string; tokenLength?: number; tokenHex?: boolean }) {
+  const adjectives = ["autumn", "hidden", "bitter", "misty"];
+  const nouns = ["waterfall", "river", "breeze", "moon"];
+
+  const delimiter = options.delimiter ?? "-";
+  const tokenLength = options.tokenLength ?? 4;
+  const tokenHex = options.tokenHex ?? false;
+
+  const adjective = randomElement(adjectives);
+  const noun = randomElement(nouns);
+
+  let token = "";
+  if (tokenLength > 0) {
+    if (tokenHex) {
+      for (let i = 0; i < tokenLength; i++) {
+        token += secureRandomInt(16).toString(16);
+      }
+    } else {
+      for (let i = 0; i < tokenLength; i++) {
+        token += secureRandomInt(10).toString();
+      }
+    }
+  }
+
+  return { name: `${adjective}${delimiter}${noun}${delimiter}${token}` };
+}
+
+export const generate = action({
+  args: {
+    options: v.optional(
+      v.object({
+        delimiter: v.optional(v.string()),
+        tokenLength: v.optional(v.number()),
+        tokenHex: v.optional(v.boolean()),
+      })
+    ),
+  },
+  handler: async (_, { options }) => {
+    return randomGenerate(options ?? {});
+  },
+});
+
+export const bulkRandom = action({
+  args: {
+    count: v.number(),
+    options: v.optional(
+      v.object({
+        delimiter: v.optional(v.string()),
+        tokenLength: v.optional(v.number()),
+        tokenHex: v.optional(v.boolean()),
+      })
+    ),
+  },
+  handler: async (_, { count, options }) => {
+    const names = Array.from({ length: count }, () => randomGenerate(options ?? {}));
+    return { names };
+  },
 });
 
 export const preview = query({
   args: {
     seed: v.string(),
-    adjectives: v.optional(v.array(v.string())),
-    nouns: v.optional(v.array(v.string())),
-    defaults: v.optional(configSchema),
-    options: v.optional(configSchema),
+    options: v.optional(
+      v.object({
+        delimiter: v.optional(v.string()),
+        tokenLength: v.optional(v.number()),
+        tokenHex: v.optional(v.boolean()),
+      })
+    ),
   },
-  handler: async (_ctx, args) => {
-    const { name, parts } = seededPreview(args.seed, {
-      adjectives: args.adjectives,
-      nouns: args.nouns,
-      defaults: args.defaults as Config | undefined,
-      options: args.options as Config | undefined,
-    });
-    return { name, parts };
+  handler: async (_, { seed, options }) => {
+    return { name: `preview-${seed}` };
   },
 });
-
-export const generate = action({
-  args: {
-    adjectives: v.optional(v.array(v.string())),
-    nouns: v.optional(v.array(v.string())),
-    defaults: v.optional(configSchema),
-    options: v.optional(configSchema),
-  },
-  handler: async (_ctx, args) => {
-    const { name, parts } = await randomGenerate({
-      adjectives: args.adjectives,
-      nouns: args.nouns,
-      defaults: args.defaults as Config | undefined,
-      options: args.options as Config | undefined,
-    });
-    return { name, parts };
-  },
-});
-
-export const haikunator = { preview, generate };
-export type { Config } from "convex-haikunator";
