@@ -3,7 +3,8 @@ name: Release
 on:
   push:
     branches:
-      - main
+      - main   # only release from main branch
+  workflow_dispatch: # allow manual trigger if needed
 
 jobs:
   release:
