@@ -108,6 +108,18 @@ See `examples/convex/haikunator.ts` — a drop-in `query`/`action` pair:
 - `haikunator.preview` — deterministic (for `useQuery`)
 - `haikunator.generate` — random (for `useAction`)
 
+## Contributing
+
+Contributions are welcome!
+
+If you’d like to improve word lists, fix bugs, or enhance functionality:
+- Fork the repository
+- Create a feature branch (`git checkout -b feat/your-feature`)
+- Commit your changes with [Conventional Commits](https://www.conventionalcommits.org/)
+- Open a Pull Request  
+
+Please keep changes simple and focused. For larger ideas, open an issue first so we can discuss.
+
 ## License
 
 MIT © 2025 Mustafa Mohsen
