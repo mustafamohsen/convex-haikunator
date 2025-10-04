@@ -722,6 +722,20 @@ export function bulkSeeded(seed: string, count: number, args: GenerateArgs = {})
     return [];
   }
 
+  const adjectives = args.adjectives ?? defaultAdjectives;
+  const nouns = args.nouns ?? defaultNouns;
+  const options = applyDefaults(args.options, defaultOptions);
+
+  const tokenChars = options.tokenHex ? "0123456789abcdef" : (options.tokenChars ?? "0123456789");
+  const totalCombinations =
+    adjectives.length * nouns.length * Math.pow(tokenChars.length, options.tokenLength ?? 0);
+
+  if (count > totalCombinations) {
+    throw new Error(
+      `bulkSeeded error: requested ${count} names, but only ${totalCombinations} unique combinations are possible.`
+    );
+  }
+
   const results = new Set<string>();
   let index = 0;
 
@@ -738,6 +752,20 @@ export function bulkSeeded(seed: string, count: number, args: GenerateArgs = {})
 export async function bulkRandom(count: number, args: GenerateArgs = {}): Promise<string[]> {
   if (count <= 0) {
     return [];
+  }
+
+  const adjectives = args.adjectives ?? defaultAdjectives;
+  const nouns = args.nouns ?? defaultNouns;
+  const options = applyDefaults(args.options, defaultOptions);
+
+  const tokenChars = options.tokenHex ? "0123456789abcdef" : (options.tokenChars ?? "0123456789");
+  const totalCombinations =
+    adjectives.length * nouns.length * Math.pow(tokenChars.length, options.tokenLength ?? 0);
+
+  if (count > totalCombinations) {
+    throw new Error(
+      `bulkRandom error: requested ${count} names, but only ${totalCombinations} unique combinations are possible.`
+    );
   }
 
   const results = new Set<string>();
