@@ -1,3 +1,10 @@
+# [0.3.0](https://github.com/mustafamohsen/convex-haikunator/compare/v0.2.4...v0.3.0) (2025-10-04)
+
+
+### Features
+
+* add batch generation with uniqueness guarantee ([a41cec8](https://github.com/mustafamohsen/convex-haikunator/commit/a41cec8aa13c3066ae7e978564334179f363bd61))
+
 ## [0.2.4](https://github.com/mustafamohsen/convex-haikunator/compare/v0.2.3...v0.2.4) (2025-10-04)
 
 
