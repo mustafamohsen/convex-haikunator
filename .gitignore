@@ -4,3 +4,4 @@ dist
 .env
 .env.*.local
 convex/_generated
+repomix-output.txt
