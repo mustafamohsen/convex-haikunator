@@ -715,3 +715,36 @@ export async function randomGenerate(args: GenerateArgs = {}): Promise<{
     rng,
   });
 }
+
+/** Bulk deterministic generation with uniqueness guarantee */
+export function bulkSeeded(seed: string, count: number, args: GenerateArgs = {}): string[] {
+  if (count <= 0) {
+    return [];
+  }
+
+  const results = new Set<string>();
+  let index = 0;
+
+  while (results.size < count) {
+    const currentSeed = `${seed}-${index++}`;
+    const { name } = seededPreview(currentSeed, args);
+    results.add(name);
+  }
+
+  return Array.from(results);
+}
+
+/** Bulk random generation with uniqueness guarantee */
+export async function bulkRandom(count: number, args: GenerateArgs = {}): Promise<string[]> {
+  if (count <= 0) {
+    return [];
+  }
+
+  const results = new Set<string>();
+  while (results.size < count) {
+    const { name } = await randomGenerate(args);
+    results.add(name);
+  }
+
+  return Array.from(results);
+}
