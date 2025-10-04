@@ -10,15 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write      # allow pushing tags & changelog commits
+      contents: write      # required for pushing changelog and tags
       issues: write        # semantic-release can create GitHub issues
       pull-requests: write # semantic-release can comment on PRs
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # required for semantic-release to analyze commits
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -30,11 +30,12 @@ jobs:
         with:
           node-version: 20
           cache: "pnpm"
+          registry-url: "https://registry.npmjs.org/"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Release
+      - name: Release with semantic-release
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

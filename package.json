@@ -1,6 +1,6 @@
 {
   "name": "convex-haikunator",
-  "version": "0.1.0",
+  "version": "0.0.0-development",
   "description": "Heroku-style, human-friendly name generator for Convex apps.",
   "license": "MIT",
   "type": "module",
@@ -46,7 +46,11 @@
   "devDependencies": {
     "@eslint/js": "^9.36.0",
     "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.6",
+    "@semantic-release/npm": "^12.0.2",
+    "@semantic-release/release-notes-generator": "^14.1.0",
     "@types/node": "^22.5.0",
     "@typescript-eslint/eslint-plugin": "^8.45.0",
     "@typescript-eslint/parser": "^8.45.0",
