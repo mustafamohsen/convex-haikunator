@@ -23,7 +23,8 @@
     "clean": "rimraf dist || rm -rf dist",
     "prepare": "npm run build",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "keywords": [
     "convex",
@@ -44,13 +45,17 @@
   "homepage": "https://github.com/mustafamohsen/convex-haikunator#readme",
   "devDependencies": {
     "@eslint/js": "^9.36.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@types/node": "^22.5.0",
     "@typescript-eslint/eslint-plugin": "^8.45.0",
     "@typescript-eslint/parser": "^8.45.0",
     "@typescript-eslint/utils": "^8.45.0",
+    "conventional-changelog-cli": "^5.0.0",
     "eslint": "^9.36.0",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.6.2",
+    "semantic-release": "^24.2.9",
     "typescript": "^5.6.0",
     "typescript-eslint": "^8.45.0"
   }
