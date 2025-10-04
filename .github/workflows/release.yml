@@ -2,51 +2,40 @@ name: Release
 
 on:
   push:
-    tags:
-      - "v*.*.*" # trigger only on version tags (e.g., v0.2.0)
+    branches:
+      - main
 
 jobs:
   release:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write      # allow pushing tags & changelog commits
+      issues: write        # semantic-release can create GitHub issues
+      pull-requests: write # semantic-release can comment on PRs
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: main 
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9 # match your local pnpm version
-          run_install: false # don’t auto-install here
+          version: 9
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: "pnpm"
-          registry-url: "https://registry.npmjs.org/"
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build
-        run: pnpm build
-
-      - name: Generate changelog
-        run: pnpm changelog
-
-      - name: Commit changelog
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add CHANGELOG.md
-          git commit -m "docs(changelog): update for ${{ github.ref_name }}" || echo "No changes"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:main
-
-      - name: Publish to npm
-        run: pnpm publish --access public
+      - name: Release
+        run: npx semantic-release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
