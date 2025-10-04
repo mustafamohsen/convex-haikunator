@@ -18,20 +18,11 @@ export interface GenerateArgs {
   options?: Config;
 }
 
-/** lodash.defaults-like shallow merge */
 export function applyDefaults<T extends object, U extends object>(
   target: T | undefined,
   defaults: U
 ): T & U {
-  const result: Record<string, unknown> = { ...defaults };
-  if (target) {
-    for (const key of Object.keys(target)) {
-      const val = (target as Record<string, unknown>)[key];
-      if (val !== undefined) {
-        result[key] = val;
-      }
-    }
-  }
+  const result = { ...defaults, ...(target ?? {}) } as T & U;
   return result;
 }
 
