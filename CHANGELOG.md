@@ -1,3 +1,10 @@
+## [0.3.1](https://github.com/mustafamohsen/convex-haikunator/compare/v0.3.0...v0.3.1) (2025-10-04)
+
+
+### Bug Fixes
+
+* **convex-haikunator:** replace Node crypto with Web Crypto API ([8e5a30e](https://github.com/mustafamohsen/convex-haikunator/commit/8e5a30e118896a8122c6812b1d86f50888901ba7))
+
 # [0.3.0](https://github.com/mustafamohsen/convex-haikunator/compare/v0.2.4...v0.3.0) (2025-10-04)
 
 
