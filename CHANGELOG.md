@@ -1,3 +1,10 @@
+# [0.4.0](https://github.com/mustafamohsen/convex-haikunator/compare/v0.3.1...v0.4.0) (2025-10-04)
+
+
+### Features
+
+* add explicit error handling when requested bulk count exceeds possible combinations ([61f6375](https://github.com/mustafamohsen/convex-haikunator/commit/61f63757262be7b4287ae7638d06142cd2359f44))
+
 ## [0.3.1](https://github.com/mustafamohsen/convex-haikunator/compare/v0.3.0...v0.3.1) (2025-10-04)
 
 
