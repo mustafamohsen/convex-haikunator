@@ -13,8 +13,8 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # needed for changelog/history
-          persist-credentials: false
+          fetch-depth: 0
+          ref: main 
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
