@@ -38,5 +38,5 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Test
-        run: pnpm test --if-present
+      - name: Run unit tests
+        run: pnpm test:coverage
