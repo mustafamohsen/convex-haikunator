@@ -102,6 +102,43 @@ export interface GenerateArgs {
 - `defaultAdjectives`, `defaultNouns`  
   Ready-made word lists.
 
+---
+
+## Bulk Generation
+
+You can generate multiple **unique** names in a single call.
+
+### Seeded bulk
+
+Deterministic, same seed → same batch:
+
+```ts
+import { bulkSeeded } from "convex-haikunator";
+
+console.log(bulkSeeded("demo-seed", 5));
+// → [ 'aged-forest-1234', 'silent-bird-9876', 'bold-moon-4312', 'tiny-hat-6654', 'rapid-sky-8888' ]
+```
+
+### Random bulk
+
+Crypto-backed randomness, always fresh:
+
+```ts
+import { bulkRandom } from "convex-haikunator";
+
+const names = await bulkRandom(5);
+console.log(names);
+// → [ 'gentle-lab-4221', 'round-pond-5552', 'yellow-fog-8439', 'rapid-hall-2930', 'silent-haze-1020' ]
+```
+
+### Notes
+- Results are guaranteed to be **unique** within a batch.
+- If `count` > possible combinations, an error will be thrown.
+- `bulkSeeded` is ideal for deterministic contexts (queries).
+- `bulkRandom` is ideal for runtime contexts (actions, servers).
+
+---
+
 ## Convex handlers
 
 See `examples/convex/haikunator.ts` — a drop-in `query`/`action` pair:
