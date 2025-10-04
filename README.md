@@ -1,6 +1,10 @@
-# convex-haikunator
+# Convex Haikunator
 
-Heroku-style, human-friendly name generator tailored for **Convex** apps.
+Generate Heroku-like random names for Convex apps.
+
+[![GitHub Actions](https://img.shields.io/github/actions/workflow/status/mustafamohsen/convex-haikunator/release.yml?branch=main&label=release)](https://github.com/mustafamohsen/convex-haikunator/actions/workflows/release.yml)
+[![npm version](https://img.shields.io/npm/v/convex-haikunator)](https://www.npmjs.com/package/convex-haikunator)
+
 - Deterministic `preview` (safe for `useQuery`) and truly random `generate` (use `useAction`)
 - Tiny footprint
 - Exposes a pure generator so you can also use it outside Convex
