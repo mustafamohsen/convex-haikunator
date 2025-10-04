@@ -1,6 +1,6 @@
 {
   "name": "convex-haikunator",
-  "version": "0.0.0-development",
+  "version": "0.2.4",
   "description": "Heroku-style, human-friendly name generator for Convex apps.",
   "license": "MIT",
   "type": "module",
